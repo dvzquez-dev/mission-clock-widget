@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Solaris Mission Clock</title>
+  <meta name="description" content="Widget horario animado Solaris para Notion y GitHub Pages." />
+  <meta name="theme-color" content="#171717" />
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <main id="widget" class="mission-card layout-wide" aria-label="Solaris Mission Clock">
+    <header class="topbar">
+      <div class="identity">
+        <span class="target-icon" aria-hidden="true"><span></span></span>
+        <div class="identity-text">
+          <p>SOLARIS</p>
+          <h1>MISSION CLOCK</h1>
+        </div>
+      </div>
+      <div class="live-pill" title="Actualizado cada segundo"><span></span>LIVE</div>
+    </header>
+
+    <section class="content">
+      <section class="clock-block" aria-label="Hora peninsular española">
+        <div class="orbit" aria-hidden="true">
+          <img class="ghost-logo" src="./assets/insignia-solaris.png" alt="" />
+          <div class="orbit-static"></div>
+          <div class="orbit-motion">
+            <div class="orbit-trail"></div>
+            <div class="orbiter">
+              <svg viewBox="0 0 64 64">
+                <path class="rocket-body" d="M49 6 36 43 23 36 8 48 20 26z"/>
+                <path class="rocket-shadow" d="M23 36 36 43 18 57z"/>
+                <path class="rocket-flame" d="M21 42 C12 44 6 49 3 58 C11 53 17 50 27 49z"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="time-wrap">
+          <div class="time" aria-live="polite" aria-atomic="true">
+            <span id="hours">13</span><span class="blink">:</span><span id="minutes">28</span><span class="blink">:</span><span id="seconds">19</span>
+          </div>
+          <div class="timezone">
+            <span>EUROPE/MADRID</span>
+            <span class="red-dot">·</span>
+            <span id="utcOffset">UTC+2</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="telemetry" aria-label="Progreso temporal">
+        <div class="row season-row">
+          <div class="label"><span id="seasonLabel">TEMPORADA 2025/26</span><strong id="seasonPercent">85%</strong></div>
+          <div class="track"><div id="seasonBar" class="fill"></div><i id="seasonMarker"></i></div>
+        </div>
+        <div class="row">
+          <div class="label"><span>MES</span><strong id="monthPercent">24%</strong></div>
+          <div class="track"><div id="monthBar" class="fill"></div><i id="monthMarker"></i></div>
+        </div>
+        <div class="row">
+          <div class="label"><span>SEMANA</span><strong id="weekPercent">37%</strong></div>
+          <div class="track"><div id="weekBar" class="fill"></div><i id="weekMarker"></i></div>
+        </div>
+        <div class="row day-row">
+          <div class="label"><span>DÍA</span><strong id="dayPercent">56%</strong></div>
+          <div class="track"><div id="dayBar" class="fill"></div><i id="dayMarker"></i></div>
+        </div>
+      </section>
+    </section>
+
+    <footer class="footer">
+      <span id="dateText">Mié · 8 Jul 2026</span>
+      <span>HORA PENINSULAR</span>
+    </footer>
+  </main>
+
+  <script src="./script.js"></script>
+</body>
+</html>
