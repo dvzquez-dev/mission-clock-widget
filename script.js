@@ -1,5 +1,5 @@
 const TIME_ZONE = "Europe/Madrid";
-const MOTTO = "BORN TO LAUNCH";
+const MOTTO = "BORN TO RISE";
 
 const $ = (selector) => document.querySelector(selector);
 const pad2 = (n) => String(n).padStart(2, "0");
