@@ -243,7 +243,7 @@ body {
 /* Offset angular de la estela respecto al cohete */
 .orbit-trail {
   inset: 0;
-  transform: rotate(34deg);
+  transform: rotate(60deg);
   background:
     conic-gradient(
       from -90deg,
@@ -267,7 +267,7 @@ body {
 
 .orbiter svg {
   position: absolute;
-  top: -14%;
+  top: -11%;
   left: 50%;
   width: var(--rocket-size);
   height: var(--rocket-size);
