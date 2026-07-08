@@ -231,8 +231,8 @@ body {
 
 .orbit-trail {
   inset: 0;
-  /* +11º respecto a antes => 45º total */
-  transform: rotate(45deg);
+  /* +7º respecto a antes => 52º total */
+  transform: rotate(52deg);
   background:
     conic-gradient(
       from -90deg,
@@ -260,7 +260,7 @@ body {
   left: 50%;
   width: var(--rocket-size);
   height: var(--rocket-size);
-  transform: translateX(-50%) rotate(42deg);
+  transform: translateX(-50%) rotate(45deg);
   filter: drop-shadow(0 0 8px rgba(237,28,36,.70));
 }
 
