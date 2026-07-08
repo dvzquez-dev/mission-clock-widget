@@ -231,8 +231,8 @@ body {
 
 .orbit-trail {
   inset: 0;
-  /* +7º respecto a antes => 52º total */
-  transform: rotate(52deg);
+  /* +8º respecto a antes => 60º total */
+  transform: rotate(60deg);
   background:
     conic-gradient(
       from -90deg,
