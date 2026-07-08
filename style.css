@@ -260,7 +260,7 @@ body {
   left: 50%;
   width: var(--rocket-size);
   height: var(--rocket-size);
-  transform: translateX(-50%) rotate(36deg);
+  transform: translateX(-50%) rotate(42deg);
   filter: drop-shadow(0 0 8px rgba(237,28,36,.70));
 }
 
