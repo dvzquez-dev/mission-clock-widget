@@ -224,7 +224,7 @@ body {
 }
 
 .orbit-motion {
-  inset: 5%;
+  inset: 8%;
   transform: rotate(var(--orbit-angle));
   will-change: transform;
 }
@@ -256,7 +256,7 @@ body {
 
 .orbiter svg {
   position: absolute;
-  top: -10%;
+  top: -14%;
   left: 50%;
   width: var(--rocket-size);
   height: var(--rocket-size);
