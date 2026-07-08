@@ -5,6 +5,8 @@ const $ = (selector) => document.querySelector(selector);
 const pad2 = (n) => String(n).padStart(2, "0");
 
 const widget = $("#widget");
+const orbitMotion = document.querySelector(".orbit-motion");
+
 const els = {
   hours: $("#hours"),
   minutes: $("#minutes"),
@@ -27,8 +29,6 @@ function applyLayout() {
 
   let layout = "focus";
 
-  // Predeterminado: layout bonito centrado.
-  // Solo cambia si el iframe no tiene espacio limpio.
   if (w < 320 || h < 150) {
     layout = "micro";
   } else if (h <= 230) {
@@ -71,6 +71,10 @@ function fitMotto() {
   const clamped = Math.max(1.2, Math.min(30, spacing));
 
   els.motto.style.letterSpacing = `${clamped}px`;
+
+  if (previousLetterSpacing) {
+    // nada, solo evitamos warning de variable sin uso
+  }
 }
 
 window.addEventListener("resize", applyLayout, { passive: true });
@@ -166,6 +170,20 @@ function madridWallMs(local) {
   );
 }
 
+function updateOrbit() {
+  if (!orbitMotion) return;
+
+  const now = new Date();
+
+  // 1 revolución por minuto, empezando arriba en el segundo 0
+  const secondsInMinute = now.getSeconds() + (now.getMilliseconds() / 1000);
+  const angle = secondsInMinute * 6; // 360 / 60 = 6 grados por segundo
+
+  orbitMotion.style.setProperty("transform", `rotate(${angle}deg)`);
+
+  requestAnimationFrame(updateOrbit);
+}
+
 function update() {
   const now = new Date();
   const local = madridNumericParts(now);
@@ -208,6 +226,7 @@ function update() {
 }
 
 update();
+updateOrbit();
 
 setTimeout(() => {
   update();
