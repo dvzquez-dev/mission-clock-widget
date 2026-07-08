@@ -6,15 +6,18 @@
   --line: rgba(245, 245, 245, 0.16);
   --red: #ed1c24;
   --red-dark: #9b0012;
+
   --season: 85%;
   --month: 24%;
   --week: 37%;
   --day: 56%;
-  --motto-letter-spacing: .42em;
-  --orbit-angle: 0deg;
+
+  --motto-gap: .42em;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 html,
 body {
@@ -27,7 +30,14 @@ body {
 body {
   overflow: hidden;
   color: var(--ink);
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
 }
 
 .mission-card {
@@ -46,7 +56,9 @@ body {
     linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.015)),
     radial-gradient(circle at 7% 11%, rgba(237,28,36,.11), transparent 26%),
     var(--panel);
-  box-shadow: inset 0 0 0 1px rgba(0,0,0,.22), 0 18px 42px rgba(0,0,0,.30);
+  box-shadow:
+    inset 0 0 0 1px rgba(0,0,0,.22),
+    0 18px 42px rgba(0,0,0,.30);
   overflow: hidden;
 }
 
@@ -97,6 +109,7 @@ body {
   min-width: 0;
 }
 
+/* Símbolo superior izquierdo: solo línea horizontal */
 .target-icon {
   position: relative;
   width: var(--target-size);
@@ -106,7 +119,6 @@ body {
   border-radius: 999px;
 }
 
-/* SOLO línea horizontal */
 .target-icon::before {
   content: "";
   position: absolute;
@@ -206,7 +218,7 @@ body {
   width: 60%;
   height: 60%;
   object-fit: contain;
-  opacity: .46; /* un poco más visible */
+  opacity: .46;
   filter: grayscale(1) contrast(1.18);
 }
 
@@ -225,14 +237,13 @@ body {
 
 .orbit-motion {
   inset: 8%;
-  transform: rotate(var(--orbit-angle));
   will-change: transform;
 }
 
+/* Offset angular de la estela respecto al cohete */
 .orbit-trail {
   inset: 0;
-  /* +8º respecto a antes => 60º total */
-  transform: rotate(60deg);
+  transform: rotate(34deg);
   background:
     conic-gradient(
       from -90deg,
@@ -256,7 +267,7 @@ body {
 
 .orbiter svg {
   position: absolute;
-  top: -11%;
+  top: -14%;
   left: 50%;
   width: var(--rocket-size);
   height: var(--rocket-size);
@@ -296,16 +307,29 @@ body {
 
 .motto {
   width: 100%;
-  margin-top: var(--motto-mt); /* más separación con la hora */
+  margin-top: var(--motto-mt);
   color: rgba(245,245,245,.76);
   font-size: var(--motto-size);
   font-weight: 800;
-  letter-spacing: var(--motto-letter-spacing);
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
   text-transform: uppercase;
   line-height: 1.15;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--motto-gap, .42em);
+}
+
+.motto span {
+  display: inline-block;
+  flex: 0 0 auto;
+}
+
+.motto-space {
+  width: .45em;
 }
 
 .telemetry {
@@ -354,7 +378,8 @@ body {
   position: relative;
   height: var(--track-h);
   border-radius: 99px;
-  background: linear-gradient(90deg, rgba(255,255,255,.10), rgba(255,255,255,.18));
+  background:
+    linear-gradient(90deg, rgba(255,255,255,.10), rgba(255,255,255,.18));
   overflow: visible;
 }
 
@@ -362,7 +387,8 @@ body {
   width: var(--value);
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, var(--red-dark), var(--red));
+  background:
+    linear-gradient(90deg, var(--red-dark), var(--red));
   box-shadow: 0 0 12px rgba(237,28,36,.22);
   transition: width .48s ease;
 }
@@ -423,12 +449,13 @@ body {
   text-overflow: ellipsis;
 }
 
-/* FOCUS */
+/* Layout predeterminado bonito */
 .layout-focus {
   --pad-y: clamp(10px, 2.8vh, 18px);
   --pad-x: clamp(14px, 3vw, 22px);
   --pad-bottom: clamp(10px, 2.5vh, 16px);
   --radius: clamp(11px, 2vw, 16px);
+
   --target-size: clamp(24px, 5vw, 34px);
   --brand-small: clamp(8px, 1.6vw, 10px);
   --brand-big: clamp(12px, 2.5vw, 16px);
@@ -436,16 +463,23 @@ body {
   --pill-pad-y: 5px;
   --pill-pad-x: 10px;
   --topbar-pad: clamp(7px, 1.6vh, 11px);
-  --orbit-size: clamp(90px, 20vh, 144px);
-  --rocket-size: clamp(30px, 5.6vh, 44px);
+
+  /* conjunto orbital +20% aprox */
+  --orbit-size: clamp(108px, 24vh, 173px);
+  --rocket-size: clamp(36px, 6.7vh, 53px);
+
   --time-size: clamp(54px, 12.6vh, 92px);
+
+  /* más espacio entre reloj y motto */
   --motto-size: clamp(12px, 2.45vh, 16px);
-  --motto-mt: clamp(9px, 1.8vh, 14px); /* más separación con el reloj */
+  --motto-mt: clamp(10px, 1.9vh, 15px);
+
   --label-size: clamp(10px, 1.85vh, 13px);
   --track-h: clamp(6px, 1.35vh, 9px);
   --marker: clamp(8px, 1.6vh, 10px);
   --bar-gap: clamp(7px, 1.25vh, 10px);
   --row-gap: clamp(3px, .6vh, 5px);
+
   --footer-size: clamp(9px, 1.7vh, 11px);
   --footer-mt: clamp(7px, 1.4vh, 11px);
   --footer-pt: clamp(7px, 1.4vh, 10px);
@@ -454,13 +488,13 @@ body {
 .layout-focus .content {
   grid-template-columns: minmax(0, 1fr);
   grid-template-rows: auto auto;
-  gap: clamp(11px, 2vh, 16px); /* un poco menos entre motto y barras */
+  gap: clamp(8px, 1.5vh, 13px);
 }
 
 .layout-focus .clock-block {
   grid-template-columns: 1fr;
   grid-template-rows: auto auto;
-  gap: clamp(10px, 1.8vh, 16px);
+  gap: clamp(7px, 1.3vh, 12px);
 }
 
 .layout-focus .time-wrap,
@@ -468,12 +502,13 @@ body {
   max-width: min(100%, 590px);
 }
 
-/* WIDE */
+/* Horizontal ancho */
 .layout-wide {
   --pad-y: clamp(8px, 2.6vh, 14px);
   --pad-x: clamp(12px, 2.7vw, 20px);
   --pad-bottom: clamp(8px, 2.1vh, 13px);
   --radius: clamp(10px, 1.8vw, 15px);
+
   --target-size: clamp(22px, 3.8vw, 32px);
   --brand-small: clamp(7px, 1.15vw, 10px);
   --brand-big: clamp(11px, 1.8vw, 16px);
@@ -481,16 +516,20 @@ body {
   --pill-pad-y: 4px;
   --pill-pad-x: 9px;
   --topbar-pad: clamp(5px, 1.3vh, 8px);
-  --orbit-size: clamp(58px, 13vw, 112px);
-  --rocket-size: clamp(22px, 4.2vw, 34px);
+
+  --orbit-size: clamp(64px, 14vw, 122px);
+  --rocket-size: clamp(24px, 4.6vw, 38px);
   --time-size: clamp(38px, 7.1vw, 76px);
+
   --motto-size: clamp(9px, 1.45vw, 12px);
   --motto-mt: clamp(6px, 1.2vh, 10px);
+
   --label-size: clamp(8px, 1.18vw, 10px);
   --track-h: clamp(5px, 1.15vh, 7px);
   --marker: clamp(7px, 1.6vh, 8px);
   --bar-gap: clamp(4px, 1.2vh, 7px);
   --row-gap: 3px;
+
   --footer-size: clamp(7px, 1.15vw, 10px);
   --footer-mt: clamp(5px, 1.2vh, 9px);
   --footer-pt: clamp(5px, 1.2vh, 8px);
@@ -512,12 +551,13 @@ body {
   justify-items: center;
 }
 
-/* LOW */
+/* Bajo */
 .layout-low {
   --pad-y: clamp(7px, 3vh, 12px);
   --pad-x: clamp(10px, 2.6vw, 18px);
   --pad-bottom: clamp(7px, 2.4vh, 12px);
   --radius: clamp(9px, 1.8vw, 14px);
+
   --target-size: clamp(20px, 4vw, 28px);
   --brand-small: clamp(7px, 1.35vw, 9px);
   --brand-big: clamp(10px, 2.1vw, 14px);
@@ -525,16 +565,20 @@ body {
   --pill-pad-y: 3px;
   --pill-pad-x: 8px;
   --topbar-pad: 5px;
+
   --orbit-size: 0px;
   --rocket-size: 0px;
+
   --time-size: clamp(34px, 7.7vw, 62px);
   --motto-size: clamp(8px, 1.55vw, 11px);
   --motto-mt: 6px;
+
   --label-size: clamp(8px, 1.35vw, 10px);
   --track-h: clamp(4px, 1.4vh, 7px);
   --marker: clamp(6px, 1.7vh, 8px);
   --bar-gap: clamp(3px, 1vh, 6px);
   --row-gap: 2px;
+
   --footer-size: 8px;
   --footer-mt: 0;
   --footer-pt: 0;
@@ -563,12 +607,13 @@ body {
   align-content: center;
 }
 
-/* COMPACT */
+/* Compacto */
 .layout-compact {
   --pad-y: clamp(9px, 2.5vh, 15px);
   --pad-x: clamp(11px, 3.4vw, 18px);
   --pad-bottom: clamp(9px, 2.2vh, 14px);
   --radius: clamp(10px, 2.2vw, 15px);
+
   --target-size: clamp(22px, 6.2vw, 30px);
   --brand-small: clamp(7px, 2vw, 9px);
   --brand-big: clamp(11px, 3.2vw, 14px);
@@ -576,16 +621,20 @@ body {
   --pill-pad-y: 4px;
   --pill-pad-x: 8px;
   --topbar-pad: clamp(5px, 1.5vh, 9px);
-  --orbit-size: clamp(64px, 20vw, 96px);
-  --rocket-size: clamp(24px, 7vw, 34px);
+
+  --orbit-size: clamp(72px, 22vw, 108px);
+  --rocket-size: clamp(26px, 7.5vw, 38px);
+
   --time-size: clamp(42px, 13vw, 66px);
   --motto-size: clamp(8px, 2.4vw, 11px);
   --motto-mt: 7px;
+
   --label-size: clamp(8px, 2.25vw, 10px);
   --track-h: clamp(5px, 1.35vh, 7px);
   --marker: clamp(7px, 1.7vh, 8px);
   --bar-gap: clamp(5px, 1.35vh, 8px);
   --row-gap: 3px;
+
   --footer-size: clamp(8px, 2.2vw, 10px);
   --footer-mt: clamp(6px, 1.3vh, 10px);
   --footer-pt: clamp(6px, 1.3vh, 9px);
@@ -609,12 +658,13 @@ body {
   max-width: 100%;
 }
 
-/* MICRO */
+/* Micro */
 .layout-micro {
   --pad-y: 7px;
   --pad-x: 9px;
   --pad-bottom: 7px;
   --radius: 9px;
+
   --target-size: 19px;
   --brand-small: 7px;
   --brand-big: clamp(9px, 3vw, 12px);
@@ -622,14 +672,17 @@ body {
   --pill-pad-y: 3px;
   --pill-pad-x: 7px;
   --topbar-pad: 4px;
+
   --time-size: clamp(28px, 15vw, 44px);
   --motto-size: clamp(7px, 2.5vw, 9px);
   --motto-mt: 5px;
+
   --label-size: clamp(6px, 2.1vw, 8px);
   --track-h: 4px;
   --marker: 6px;
   --bar-gap: 3px;
   --row-gap: 1px;
+
   --footer-size: 7px;
   --footer-mt: 0;
   --footer-pt: 0;
