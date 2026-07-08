@@ -20,7 +20,26 @@ const els = {
   dayPercent: $("#dayPercent"),
 };
 
-els.motto.textContent = MOTTO;
+renderMotto();
+
+function renderMotto() {
+  if (!els.motto) return;
+
+  els.motto.innerHTML = "";
+
+  for (const char of MOTTO) {
+    const span = document.createElement("span");
+
+    if (char === " ") {
+      span.className = "motto-space";
+      span.innerHTML = "&nbsp;";
+    } else {
+      span.textContent = char;
+    }
+
+    els.motto.appendChild(span);
+  }
+}
 
 function applyLayout() {
   const w = Math.max(1, window.innerWidth);
@@ -29,6 +48,11 @@ function applyLayout() {
 
   let layout = "focus";
 
+  /*
+    Layout predeterminado:
+    - focus: el bonito, vertical centrado.
+    Solo baja a otros layouts si el iframe no da espacio.
+  */
   if (w < 320 || h < 150) {
     layout = "micro";
   } else if (h <= 230) {
@@ -50,31 +74,23 @@ function applyLayout() {
 function fitMotto() {
   if (!els.motto) return;
 
-  const text = els.motto.textContent.trim();
-  const characters = text.length;
-  if (characters < 2) return;
+  const chars = Array.from(els.motto.querySelectorAll("span"));
+  if (chars.length < 2) return;
+
+  els.motto.style.setProperty("--motto-gap", "0px");
 
   const box = els.motto.parentElement?.getBoundingClientRect();
-  const targetWidth = Math.max(40, (box?.width ?? els.motto.clientWidth) * 0.90);
+  const targetWidth = Math.max(40, (box?.width ?? els.motto.clientWidth) * 0.92);
 
-  const previousWidth = els.motto.style.width;
-  const previousLetterSpacing = els.motto.style.letterSpacing;
+  const charsWidth = chars.reduce((sum, char) => {
+    return sum + char.getBoundingClientRect().width;
+  }, 0);
 
-  els.motto.style.width = "max-content";
-  els.motto.style.letterSpacing = "0px";
+  const availableGap = targetWidth - charsWidth;
+  const gap = availableGap / Math.max(1, chars.length - 1);
+  const clamped = Math.max(1.2, Math.min(30, gap));
 
-  const naturalWidth = els.motto.getBoundingClientRect().width;
-
-  els.motto.style.width = previousWidth || "100%";
-
-  const spacing = (targetWidth - naturalWidth) / Math.max(1, characters - 1);
-  const clamped = Math.max(1.2, Math.min(30, spacing));
-
-  els.motto.style.letterSpacing = `${clamped}px`;
-
-  if (previousLetterSpacing) {
-    // nada, solo evitamos warning de variable sin uso
-  }
+  els.motto.style.setProperty("--motto-gap", `${clamped}px`);
 }
 
 window.addEventListener("resize", applyLayout, { passive: true });
@@ -128,6 +144,12 @@ function madridNumericParts(date = new Date()) {
   };
 }
 
+/*
+  Temporada automática:
+  - empieza el 1 de septiembre
+  - termina el 31 de agosto
+  - cambia sola: 2025/26 -> 2026/27 -> 2027/28
+*/
 function getSeason(local) {
   const startYear = local.month >= 9 ? local.year : local.year - 1;
   const endYear = startYear + 1;
@@ -153,8 +175,13 @@ function setPercent(name, value) {
 }
 
 function formatDateText(parts) {
-  const weekday = parts.weekday.replace(".", "").replace(/^./, (c) => c.toUpperCase());
-  const month = parts.month.replace(".", "").replace(/^./, (c) => c.toUpperCase());
+  const weekday = parts.weekday
+    .replace(".", "")
+    .replace(/^./, (c) => c.toUpperCase());
+
+  const month = parts.month
+    .replace(".", "")
+    .replace(/^./, (c) => c.toUpperCase());
 
   return `${weekday} · ${Number(parts.day)} ${month} ${parts.year}`;
 }
@@ -170,16 +197,20 @@ function madridWallMs(local) {
   );
 }
 
+/*
+  Orbitador:
+  - 1 revolución por minuto
+  - segundo 0 => nave arriba
+  - avanza a velocidad constante como segundero real
+*/
 function updateOrbit() {
   if (!orbitMotion) return;
 
   const now = new Date();
+  const secondsInMinute = now.getSeconds() + now.getMilliseconds() / 1000;
+  const angle = secondsInMinute * 6;
 
-  // 1 revolución por minuto, empezando arriba en el segundo 0
-  const secondsInMinute = now.getSeconds() + (now.getMilliseconds() / 1000);
-  const angle = secondsInMinute * 6; // 360 / 60 = 6 grados por segundo
-
-  orbitMotion.style.setProperty("transform", `rotate(${angle}deg)`);
+  orbitMotion.style.transform = `rotate(${angle}deg)`;
 
   requestAnimationFrame(updateOrbit);
 }
