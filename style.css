@@ -224,7 +224,7 @@ body {
 }
 
 .orbit-motion {
-  inset: 8%;
+  inset: 10%;
   transform: rotate(var(--orbit-angle));
   will-change: transform;
 }
