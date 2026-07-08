@@ -256,7 +256,7 @@ body {
 
 .orbiter svg {
   position: absolute;
-  top: -14%;
+  top: -13%;
   left: 50%;
   width: var(--rocket-size);
   height: var(--rocket-size);
